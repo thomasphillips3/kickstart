@@ -53,4 +53,16 @@ describe('Campaigns', () => {
           .call();
         assert(isContributor);
     });
+
+    it('requires a minimum amount of ether to contribute', async () => {
+        try {
+            await campaign.methods.contribute().send({
+                value: '1',
+                from: accounts[1]
+            });
+            assert(false);
+        } catch (err) {
+            assert(err);
+        }
+    });
 });
